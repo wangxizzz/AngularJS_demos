@@ -1,0 +1,36 @@
+<html>
+<head>
+	<!--通过内置http获取后端返回的json格式数据。 -->
+	<title>入门小Demo-8  内置服务</title>
+	<meta charset="utf-8" />
+	<script src="angular.min.js"></script>	
+	<script>
+		var app=angular.module('myApp',[]); //定义了一个叫myApp的模块
+		//定义控制器
+		app.controller('myController',function($scope,$http){		
+			$scope.findAll=function(){
+				// get()方法里面的参数表示你要请求的地址，返回json数据
+				$http.get('data.json').success(   //如果调用成功
+					function(response){  // response表示返回的json数据
+						$scope.list=response; // 赋值给list
+					}					
+				);				
+			}			
+		});	
+	</script>	
+</head>
+<body ng-app="myApp" ng-controller="myController" ng-init="findAll()">
+<table>
+<tr>
+	<td>姓名</td>
+	<td>数学</td>
+	<td>语文</td>
+</tr>
+<tr ng-repeat="entity in list">
+	<td>{{entity.name}}</td>
+	<td>{{entity.shuxue}}</td>
+	<td>{{entity.yuwen}}</td>
+</tr>
+</table>
+</body>
+</html>
